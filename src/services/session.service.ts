@@ -13,8 +13,8 @@ type GitHubOauthToken = {
   }): Promise<any> => {
     const rootUrl = 'https://github.com/login/oauth/access_token';
     const options = {
-      client_id: process.env.GITHUB_OAUTH_CLIENT_ID,
-      client_secret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
+      client_id: '',
+      client_secret: '',
       code,
     };
   

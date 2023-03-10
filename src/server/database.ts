@@ -9,7 +9,7 @@ import Role from '../models/role';
 
 const options: ConnectionOptions = {
   type: 'sqlite',
-  database: process.env.SQLITE_PATH,
+  database: '',
   entities: [User, ActiveSession, Role],
   logging: true,
 };

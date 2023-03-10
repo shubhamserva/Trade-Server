@@ -4,7 +4,7 @@ import http from 'http';
 
 import server from './server';
 
-const { PORT } = process.env;
+const PORT  = 5000;
 
 http.createServer({
 }, server)

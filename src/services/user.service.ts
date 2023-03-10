@@ -39,7 +39,7 @@ export const createUserWithToken = async (userData: any) => {
         id: requiredUser.id,
         username: requiredUser.username,
       },
-      process.env.SECRET,
+     '',
       {
         expiresIn: 86400, // 1 week
       }
