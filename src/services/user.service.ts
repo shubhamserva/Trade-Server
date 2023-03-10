@@ -32,9 +32,6 @@ export const createUserWithToken = async (userData: any) => {
     requiredUser = u;
   }
 
-  if (!process.env.SECRET) {
-    throw new Error("SECRET not provided");
-  }
 
   if (requiredUser) {
     const token: any = jwt.sign(

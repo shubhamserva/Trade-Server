@@ -6,9 +6,6 @@ import ActiveSession from '../models/activeSession';
 import User from '../models/user';
 import Role from '../models/role';
 
-if (!process.env.SQLITE_PATH) {
-  throw new Error('SQLITE_PATH environment variable is not set.');
-}
 
 const options: ConnectionOptions = {
   type: 'sqlite',
