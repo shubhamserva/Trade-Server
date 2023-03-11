@@ -82,7 +82,7 @@ router.post('/login', async (req, resp) => {
 });
 });
 
-router.post('/logout', checkToken, logoutUser);
+router.post('/logout', logoutUser);
 
 router.post('/checkSession', checkToken, (_req, res) => {
   res.json({ success: true });
