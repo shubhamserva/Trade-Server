@@ -1,5 +1,6 @@
 import { Client as PgClient } from 'pg';
 var fs = require('fs');
+const path = require("path");
 
 export const connect = async (): Promise<PgClient> => {
   const client = new PgClient({
@@ -9,10 +10,9 @@ export const connect = async (): Promise<PgClient> => {
     password: 'AVNS_ump0AKJ208D-psUbMrL',
     port: 25060,
     ssl  : {
-        ca : fs.readFileSync('C:\\Users\\Shubham\\Downloads\\ca-certificate.crt')
+        ca : fs.readFileSync(path.resolve(__dirname, '../assets/ca-certificate.crt'))
       }
   });
-
   try {
     await client.connect();
     console.log('Connected to PostgreSQL database');
