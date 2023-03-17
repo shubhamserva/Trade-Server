@@ -17,11 +17,12 @@ initPassport(passport);
 server.use(passport.initialize());
 server.use(cors());
 server.use(express.json());
+server.disable('etag');
 // Initialize routes middleware
 server.use('/api/users', routes);
 server.use('/api/sessions', sessionRoute);
 server.get('/favicon.ico', (_req, res) => {
-    res.status(200).json({ success: true, msg: 'all good 1' });
+    res.status(304).json({ success: true, msg: 'all good 1' });
   });
 
 export default server;
