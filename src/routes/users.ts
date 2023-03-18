@@ -38,6 +38,7 @@ router.post('/register', async (req,resp ) => {
          }
           const ress = data.some(obj => obj.email === email)
             if (ress) {
+              resp.setHeader('Access-Control-Allow-Origin', '*');
               resp.json({ success: false, msg: 'Email already exists' });
               return
             } else {
@@ -47,6 +48,7 @@ router.post('/register', async (req,resp ) => {
                     if (err) {
                       console.error('ERRRR',err);
                     } else {
+                      resp.setHeader('Access-Control-Allow-Origin', '*');
                       resp.json({ success: true, userID: '', msg: 'The user was successfully registered' });
                     }
                   });
@@ -71,11 +73,12 @@ router.post('/login', async (req, resp) => {
       const ress = data.some(obj => obj.email === email)
       const val1 = validate(email, password, data);
         if (!ress) {
- 
+          resp.setHeader('Access-Control-Allow-Origin', '*');
           resp.json({ success: false, msg: 'Email does not exists' });
           return
         } 
         else if (val1) {
+          resp.setHeader('Access-Control-Allow-Origin', '*');
           resp.json({ success: true, userID: '', msg: 'correct' });
         }
   };
@@ -99,6 +102,36 @@ router.post('/all', checkToken, (_req, res) => {
   //   });
   //   res.json({ success: true, users });
   // }).catch(() => res.json({ success: false }));
+});
+
+router.post('/upload', async (req, resp) => {
+  console.log('upload',req.body.data[0])
+  const client = await connect();
+  const allData = req.body.data
+  const query = {
+    text:'INSERT INTO public.research_data (stock_symbol ,ltp ,buy_initiate ,target_buy, sell_initiate, target_sell) VALUES($1,$2,$3,$4,$5,$6)',
+    values: [allData[1][2], allData[1][3], allData[1][5],allData[1][6],allData[1][8],allData[1][9]]
+  }
+  console.log("QQ",query)
+   client.query(query, (err: any, res: any) => {
+    if (err) {
+      console.error('ERRRR',err);
+    } else {
+      resp.json({ success: true, userID: '', msg: 'added' });
+    }
+  });
+
+});
+
+router.get('/view', async (_req, resp) => {
+  const client = await connect();
+  client.query('SELECT * FROM public.research_data ORDER BY id ASC', (err: any, res: any) => {
+    if (err) {
+      console.error('ERRRR',err);
+    } else {
+      resp.json({ success: true, data: res.rows, msg: 'added' });
+    }
+  });
 });
 
 router.post('/edit', checkToken, (req, res) => {
