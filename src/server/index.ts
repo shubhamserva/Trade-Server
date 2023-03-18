@@ -10,14 +10,22 @@ import sessionRoute from '../routes/session.route'
 
 // Instantiate express
 const server = express();
-server.use(compression());
+//server.use(compression());
 
 // Passport Config
-initPassport(passport);
-server.use(passport.initialize());
-server.use(cors());
+//initPassport(passport);
+//server.use(passport.initialize());
+//server.use(cors());
 server.use(express.json());
 server.disable('etag');
+
+// Set up CORS headers
+server.use(cors({
+  // Allow requests from any origin
+  origin: '*',
+  // Allow the following headers
+  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Headers']
+}));
 // Initialize routes middleware
 server.use('/api/users', routes);
 server.use('/api/sessions', sessionRoute);
