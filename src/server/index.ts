@@ -26,6 +26,13 @@ server.use(cors({
   // Allow the following headers
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Headers']
 }));
+server.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
+  next();
+});
+
 // Initialize routes middleware
 server.use('/api/users', routes);
 server.use('/api/sessions', sessionRoute);
